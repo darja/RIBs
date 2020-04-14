@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import com.uber.rib.core.InteractorBaseComponent;
 import com.uber.rib.core.ViewBuilder;
+import com.uber.rib.root.logged_in.ScoreStream;
 import com.uber.rib.tutorial1.R;
 
 import java.lang.annotation.Retention;
@@ -71,6 +72,7 @@ public class OffGameBuilder
     @Named("player_one") String player1();
     @Named("player_two") String player2();
     OffGameInteractor.Listener listener();
+    ScoreStream scoreStream();
   }
 
   @dagger.Module

@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.inject.Qualifier;
 import javax.inject.Scope;
 
+import dagger.Binds;
 import dagger.BindsInstance;
 import dagger.Provides;
 
@@ -69,6 +70,19 @@ public class LoggedInBuilder extends Builder<LoggedInRouter, LoggedInBuilder.Par
     static OffGameInteractor.Listener offGameListener(LoggedInInteractor interactor) {
       return interactor.new OffGameListener();
     }
+
+    @LoggedInScope
+    @LoggedInInternal
+    @Provides
+    static MutableScoreStream mutableScoreStream(
+            @Named("player_one") String playerOne,
+            @Named("player_two") String playerTwo) {
+      return new MutableScoreStream(playerOne, playerTwo);
+    }
+
+    @LoggedInScope
+    @Binds
+    abstract ScoreStream scoreStream(@LoggedInInternal MutableScoreStream mutableScoreStream);
   }
 
   @LoggedInScope

@@ -36,7 +36,7 @@ public class LoggedOutInteractorTest extends RibTestBasePlaceholder {
         when(presenter.loginName()).thenReturn(Observable.just("fakename"));
 
         InteractorHelper.attach(interactor, presenter, router, null);
-        verify(listener).login(any(String.class));
+        verify(listener).startGame(any(String.class));
     }
 
     @Test
@@ -46,6 +46,6 @@ public class LoggedOutInteractorTest extends RibTestBasePlaceholder {
         InteractorHelper.attach(interactor, presenter, router, null);
         // This test will fail because the interactor doesn’t have any logic for handling empty strings.
         // You’ll need to fix this as discussed above the code snippet.
-        verify(listener, never()).login(any(String.class));
+        verify(listener, never()).startGame(any(String.class));
     }
 }

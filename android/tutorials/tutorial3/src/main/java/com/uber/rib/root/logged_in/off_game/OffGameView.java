@@ -17,16 +17,20 @@
 package com.uber.rib.root.logged_in.off_game;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
 import com.jakewharton.rxbinding2.view.RxView;
 import com.uber.rib.core.Initializer;
 import com.uber.rib.tutorial1.R;
-import io.reactivex.Observable;
+
 import java.util.Locale;
+
+import io.reactivex.Observable;
 
 /**
  * Top level view for {@link OffGameBuilder.OffGameScope}.
@@ -55,11 +59,11 @@ public class OffGameView extends LinearLayout implements OffGameInteractor.OffGa
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    button = (Button) findViewById(R.id.start_game_button);
-    playerOneName = (TextView) findViewById(R.id.player_one_name);
-    playerTwoName = (TextView) findViewById(R.id.player_two_name);
-    playerOneScore = (TextView) findViewById(R.id.player_one_win_count);
-    playerTwoScore = (TextView) findViewById(R.id.player_two_win_count);
+    button = findViewById(R.id.start_game_button);
+    playerOneName = findViewById(R.id.player_one_name);
+    playerTwoName = findViewById(R.id.player_two_name);
+    playerOneScore = findViewById(R.id.player_one_win_count);
+    playerTwoScore = findViewById(R.id.player_two_win_count);
   }
 
   @Override
@@ -69,7 +73,7 @@ public class OffGameView extends LinearLayout implements OffGameInteractor.OffGa
   }
 
   @Override
-  public void setScores(Integer playerOneScore, Integer playerTwoScore) {
+  public void setScores(@Nullable Integer playerOneScore, @Nullable Integer playerTwoScore) {
     this.playerOneScore.setText(
         String.format(Locale.getDefault(), "Win Count: %d", playerOneScore));
     this.playerTwoScore.setText(

@@ -59,6 +59,7 @@ dependencies {
     implementation deps.androidx.percent
     implementation deps.external.dagger
     implementation deps.external.rxbinding
+    implementation deps.build.guava
     compileOnly deps.apt.androidApi
     compileOnly deps.apt.javax
     testImplementation project(":libraries:rib-test-utils")

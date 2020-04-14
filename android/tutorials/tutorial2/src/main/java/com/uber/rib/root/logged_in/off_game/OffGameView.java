@@ -38,6 +38,8 @@ public class OffGameView extends LinearLayout implements OffGameInteractor.OffGa
   private Button button;
   private TextView player1View;
   private TextView player2View;
+  private TextView score1View;
+  private TextView score2View;
 
   public OffGameView(Context context) {
     this(context, null);
@@ -59,12 +61,21 @@ public class OffGameView extends LinearLayout implements OffGameInteractor.OffGa
 
     player1View = findViewById(R.id.player_one_name);
     player2View = findViewById(R.id.player_two_name);
+
+    score1View = findViewById(R.id.player_one_win_count);
+    score2View = findViewById(R.id.player_two_win_count);
   }
 
   @Override
   public void setPlayerNames(String player1, String player2) {
     player1View.setText(player1);
     player2View.setText(player2);
+  }
+
+  @Override
+  public void setScores(@Nullable Integer score1, @Nullable Integer score2) {
+    score1View.setText(score1 == null ? "0" : score1.toString());
+    score2View.setText(score2 == null ? "0" : score2.toString());
   }
 
   @Override

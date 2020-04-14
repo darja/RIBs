@@ -16,17 +16,19 @@
 
 package com.uber.rib.root.logged_in.off_game;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.Nullable;
 
 import com.uber.rib.core.Bundle;
 import com.uber.rib.core.Interactor;
 import com.uber.rib.core.RibInteractor;
+import com.uber.rib.root.logged_in.ScoreStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Coordinates Business Logic for {@link OffGameBuilder.OffGameScope}.
@@ -39,21 +41,25 @@ public class OffGameInteractor
   @Inject OffGamePresenter presenter;
   @Inject @Named("player_one") String player1;
   @Inject @Named("player_two") String player2;
+  @Inject ScoreStream scoreStream;
 
+  @SuppressLint("CheckResult")
   @Override
   protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
     super.didBecomeActive(savedInstanceState);
 
     presenter.setPlayerNames(player1, player2);
 
+    scoreStream.scores()
+            .subscribe(scores -> {
+              if (player1 != null && player2 != null) {
+                presenter.setScores(scores.get(player1), scores.get(player2));
+              }
+            });
+
     presenter
         .startGameRequest()
-        .subscribe(new Consumer<Object>() {
-          @Override
-          public void accept(Object object) throws Exception {
-            listener.onStartGame();
-          }
-        });
+        .subscribe(object -> listener.onStartGame());
   }
 
   public interface Listener {
@@ -66,6 +72,7 @@ public class OffGameInteractor
    */
   interface OffGamePresenter {
     void setPlayerNames(String player1, String player2);
+    void setScores(@Nullable Integer score1, @Nullable Integer score2);
     Observable<Object> startGameRequest();
   }
 }
