@@ -34,6 +34,7 @@ public class RootInteractor extends Interactor<RootInteractor.RootPresenter, Roo
   protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
     super.didBecomeActive(savedInstanceState);
 
+    getRouter().attachLoggedOut();
     // Add attachment logic here (RxSubscriptions, etc.).
   }
 

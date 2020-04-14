@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 
 import com.uber.rib.core.InteractorBaseComponent;
 import com.uber.rib.core.ViewBuilder;
+import com.uber.rib.tutorial1.R;
+
 import java.lang.annotation.Retention;
 
 import javax.inject.Scope;
@@ -47,9 +49,7 @@ public class LoggedOutBuilder
 
   @Override
   protected LoggedOutView inflateView(LayoutInflater inflater, ViewGroup parentViewGroup) {
-    // TODO: Inflate a new view using the provided inflater, or create a new view programatically using the
-    // provided context from the parentViewGroup.
-    return null;
+    return (LoggedOutView) inflater.inflate(R.layout.logged_out_rib, parentViewGroup, false);
   }
 
   public interface ParentComponent {

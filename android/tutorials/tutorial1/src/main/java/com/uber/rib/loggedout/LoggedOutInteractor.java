@@ -1,12 +1,20 @@
 package com.uber.rib.loggedout;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.uber.rib.core.Bundle;
 import com.uber.rib.core.Interactor;
 import com.uber.rib.core.RibInteractor;
 
+import org.reactivestreams.Subscription;
+
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Coordinates Business Logic for {@link LoggedOutBuilder.LoggedOutScope}.
@@ -23,7 +31,7 @@ public class LoggedOutInteractor
   protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
     super.didBecomeActive(savedInstanceState);
 
-    // TODO: Add attachment logic here (RxSubscriptions, etc.).
+    Disposable s = presenter.loginName().subscribe(name -> Log.d("MOO", name));
   }
 
   @Override
@@ -37,5 +45,7 @@ public class LoggedOutInteractor
   /**
    * Presenter interface implemented by this RIB's view.
    */
-  public interface LoggedOutPresenter { }
+  public interface LoggedOutPresenter {
+    Observable<String> loginName();
+  }
 }
