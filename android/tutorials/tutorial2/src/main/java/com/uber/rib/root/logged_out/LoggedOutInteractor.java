@@ -30,6 +30,7 @@ public class LoggedOutInteractor
         super.didBecomeActive(savedInstanceState);
         presenter
             .loginName()
+            .filter(name -> name != null && !name.isEmpty())
             .subscribe(name -> listener.login(name));
     }
 
