@@ -30,7 +30,7 @@ public class LoggedOutInteractor
     protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
         super.didBecomeActive(savedInstanceState);
         presenter
-            .loginName()
+            .gameStart()
             .filter(this::isGameStartValid)
             .subscribe(game -> listener.startGame(game));
     }
@@ -45,7 +45,7 @@ public class LoggedOutInteractor
      * Presenter interface implemented by this RIB's view.
      */
     interface LoggedOutPresenter {
-        Observable<GameStart> loginName();
+        Observable<GameStart> gameStart();
     }
 
     public interface Listener {

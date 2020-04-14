@@ -41,7 +41,7 @@ public class LoggedOutView extends LinearLayout implements LoggedOutInteractor.L
     }
 
     @Override
-    public Observable<GameStart> loginName() {
+    public Observable<GameStart> gameStart() {
         return RxView.clicks(findViewById(R.id.login_button))
             .map(o -> new GameStart(getPlayer1(), getPlayer2()));
     }
