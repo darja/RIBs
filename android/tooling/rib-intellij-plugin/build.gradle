@@ -6,7 +6,7 @@ buildscript {
 
 apply plugin: "java"
 apply plugin: "maven"
-apply plugin: "org.jetbrains.intellij"
+//apply plugin: "org.jetbrains.intellij"
 
 group "com.uber.rib"
 
@@ -59,14 +59,14 @@ def isReleaseBuild() {
 ext.pluginXml = new XmlSlurper().parse(file("src/main/resources/META-INF/plugin.xml"))
 version = pluginXml.version
 
-intellij {
-    plugins = ['CheckStyle-IDEA:5.5.0']
-    version deps.versions.intellij
-    pluginName "UberRIBPresidioPlugin"
-    updateSinceUntilBuild false
-    sandboxDirectory "${project.gradle.gradleHomeDir}/caches/intellij"
-    downloadSources false
-}
+//intellij {
+//    plugins = ['CheckStyle-IDEA:5.5.0']
+//    version deps.versions.intellij
+//    pluginName "UberRIBPresidioPlugin"
+//    updateSinceUntilBuild false
+//    sandboxDirectory "${project.gradle.gradleHomeDir}/caches/intellij"
+//    downloadSources false
+//}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = "sources"
@@ -76,7 +76,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 afterEvaluate {
     artifacts {
         archives sourcesJar
-        archives project.tasks.getByName("buildPlugin")
+//        archives project.tasks.getByName("buildPlugin")
     }
 }
 
