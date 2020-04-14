@@ -71,7 +71,7 @@ public class OffGameBuilder
   public interface ParentComponent {
     @Named("player_one") String player1();
     @Named("player_two") String player2();
-    OffGameInteractor.Listener listener();
+    OffGameInteractor.Listener offGameListener();
     ScoreStream scoreStream();
   }
 

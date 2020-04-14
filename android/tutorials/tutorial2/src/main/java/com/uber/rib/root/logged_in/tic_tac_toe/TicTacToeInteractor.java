@@ -32,7 +32,7 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Coordinates Business Logic for {@link TicTacToeScope}.
+ * Coordinates Business Logic for {@link TicTacToeBuilder.TicTacToeScope}.
  */
 @RibInteractor
 public class TicTacToeInteractor
@@ -40,6 +40,7 @@ public class TicTacToeInteractor
 
   @Inject Board board;
   @Inject TicTacToePresenter presenter;
+  @Inject Listener listener;
 
   @Inject @Named("player_one") String player1;
   @Inject @Named("player_two") String player2;
@@ -75,8 +76,10 @@ public class TicTacToeInteractor
                         }
                         if (board.hasWon(MarkerType.CROSS)) {
                           presenter.setPlayerWon(player1);
+                          listener.onGameOver(player1);
                         } else if (board.hasWon(MarkerType.NOUGHT)) {
                           presenter.setPlayerWon(player2);
+                          listener.onGameOver(player2);
                         } else if (board.isDraw()) {
                           presenter.setPlayerTie();
                         } else {
@@ -114,6 +117,6 @@ public class TicTacToeInteractor
   }
 
   public interface Listener {
-
+    void onGameOver(String winner);
   }
 }

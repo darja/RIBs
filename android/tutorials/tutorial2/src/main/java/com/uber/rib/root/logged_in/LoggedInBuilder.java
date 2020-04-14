@@ -7,6 +7,7 @@ import com.uber.rib.root.RootView;
 import com.uber.rib.root.logged_in.off_game.OffGameBuilder;
 import com.uber.rib.root.logged_in.off_game.OffGameInteractor;
 import com.uber.rib.root.logged_in.tic_tac_toe.TicTacToeBuilder;
+import com.uber.rib.root.logged_in.tic_tac_toe.TicTacToeInteractor;
 
 import java.lang.annotation.Retention;
 
@@ -69,6 +70,12 @@ public class LoggedInBuilder extends Builder<LoggedInRouter, LoggedInBuilder.Par
     @Provides
     static OffGameInteractor.Listener offGameListener(LoggedInInteractor interactor) {
       return interactor.new OffGameListener();
+    }
+
+    @LoggedInScope
+    @Provides
+    static TicTacToeInteractor.Listener ticTacToeListener(LoggedInInteractor interactor) {
+      return interactor.new TicTacToeListener();
     }
 
     @LoggedInScope

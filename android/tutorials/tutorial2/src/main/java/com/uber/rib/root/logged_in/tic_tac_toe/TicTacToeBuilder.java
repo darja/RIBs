@@ -70,6 +70,7 @@ public class TicTacToeBuilder
   public interface ParentComponent {
     @Named("player_one") String player1();
     @Named("player_two") String player2();
+    TicTacToeInteractor.Listener ticTacToeListener();
   }
 
   @dagger.Module
