@@ -23,12 +23,13 @@ import com.uber.rib.core.Interactor;
 import com.uber.rib.core.RibInteractor;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Coordinates Business Logic for {@link OffGameScope}.
+ * Coordinates Business Logic for {@link OffGameBuilder.OffGameScope}.
  */
 @RibInteractor
 public class OffGameInteractor
@@ -36,10 +37,14 @@ public class OffGameInteractor
 
   @Inject Listener listener;
   @Inject OffGamePresenter presenter;
+  @Inject @Named("player_one") String player1;
+  @Inject @Named("player_two") String player2;
 
   @Override
   protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
     super.didBecomeActive(savedInstanceState);
+
+    presenter.setPlayerNames(player1, player2);
 
     presenter
         .startGameRequest()
@@ -60,7 +65,7 @@ public class OffGameInteractor
    * Presenter interface implemented by this RIB's view.
    */
   interface OffGamePresenter {
-
+    void setPlayerNames(String player1, String player2);
     Observable<Object> startGameRequest();
   }
 }

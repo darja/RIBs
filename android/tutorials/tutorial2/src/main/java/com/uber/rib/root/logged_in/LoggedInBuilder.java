@@ -10,6 +10,7 @@ import com.uber.rib.root.logged_in.tic_tac_toe.TicTacToeBuilder;
 
 import java.lang.annotation.Retention;
 
+import javax.inject.Named;
 import javax.inject.Qualifier;
 import javax.inject.Scope;
 
@@ -29,11 +30,13 @@ public class LoggedInBuilder extends Builder<LoggedInRouter, LoggedInBuilder.Par
    *
    * @return a new {@link LoggedInRouter}.
    */
-  public LoggedInRouter build() {
+  public LoggedInRouter build(String player1, String player2) {
     LoggedInInteractor interactor = new LoggedInInteractor();
     Component component = DaggerLoggedInBuilder_Component.builder()
         .parentComponent(getDependency())
         .interactor(interactor)
+        .playerOne(player1)
+        .playerTwo(player2)
         .build();
 
     return component.loggedinRouter();
@@ -81,6 +84,12 @@ public class LoggedInBuilder extends Builder<LoggedInRouter, LoggedInBuilder.Par
       Builder interactor(LoggedInInteractor interactor);
       Builder parentComponent(ParentComponent component);
       Component build();
+
+      @BindsInstance
+      Builder playerOne(@Named("player_one") String playerOne);
+
+      @BindsInstance
+      Builder playerTwo(@Named("player_two") String playerTwo);
     }
 
   }

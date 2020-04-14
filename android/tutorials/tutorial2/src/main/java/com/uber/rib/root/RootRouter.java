@@ -56,7 +56,7 @@ public class RootRouter extends ViewRouter<RootView, RootInteractor, RootBuilder
     }
   }
 
-  public void attachLoggedIn() {
-    attachChild(loggedInBuilder.build());
+  public void attachLoggedIn(String player1, String player2) {
+    attachChild(loggedInBuilder.build(player1, player2));
   }
 }

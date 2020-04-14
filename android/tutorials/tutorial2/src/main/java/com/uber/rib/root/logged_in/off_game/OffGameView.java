@@ -17,10 +17,12 @@
 package com.uber.rib.root.logged_in.off_game;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.uber.rib.core.Initializer;
@@ -34,6 +36,8 @@ import io.reactivex.Observable;
 public class OffGameView extends LinearLayout implements OffGameInteractor.OffGamePresenter {
 
   private Button button;
+  private TextView player1View;
+  private TextView player2View;
 
   public OffGameView(Context context) {
     this(context, null);
@@ -51,7 +55,16 @@ public class OffGameView extends LinearLayout implements OffGameInteractor.OffGa
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    button = (Button) findViewById(R.id.start_game_button);
+    button = findViewById(R.id.start_game_button);
+
+    player1View = findViewById(R.id.player_one_name);
+    player2View = findViewById(R.id.player_two_name);
+  }
+
+  @Override
+  public void setPlayerNames(String player1, String player2) {
+    player1View.setText(player1);
+    player2View.setText(player2);
   }
 
   @Override

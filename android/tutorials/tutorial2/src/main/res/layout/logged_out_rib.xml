@@ -4,19 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<!--    <Space-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"/>-->
     <EditText
-        android:id="@+id/edit_text"
-        android:hint="Enter your name"
+        android:id="@+id/player1"
+        android:hint="Player1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"/>
+    <EditText
+        android:id="@+id/player2"
+        android:hint="Player2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"/>
     <Button
         android:id="@+id/login_button"
-        android:text="Login"
+        android:text="Play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"/>

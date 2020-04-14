@@ -25,6 +25,7 @@ import com.uber.rib.tutorial1.R;
 
 import java.lang.annotation.Retention;
 
+import javax.inject.Named;
 import javax.inject.Qualifier;
 import javax.inject.Scope;
 
@@ -67,7 +68,8 @@ public class OffGameBuilder
   }
 
   public interface ParentComponent {
-
+    @Named("player_one") String player1();
+    @Named("player_two") String player2();
     OffGameInteractor.Listener listener();
   }
 

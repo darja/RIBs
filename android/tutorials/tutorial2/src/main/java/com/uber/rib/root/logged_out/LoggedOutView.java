@@ -1,22 +1,24 @@
 package com.uber.rib.root.logged_out;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.jakewharton.rxbinding2.view.RxView;
+import com.uber.rib.model.GameStart;
 import com.uber.rib.tutorial1.R;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 
 /**
  * Top level view for {@link LoggedOutBuilder.LoggedOutScope}.
  */
 public class LoggedOutView extends LinearLayout implements LoggedOutInteractor.LoggedOutPresenter {
+    private TextView player1View;
+    private TextView player2View;
 
     public LoggedOutView(Context context) {
         this(context, null);
@@ -31,14 +33,24 @@ public class LoggedOutView extends LinearLayout implements LoggedOutInteractor.L
     }
 
     @Override
-    public Observable<String> loginName() {
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        player1View = findViewById(R.id.player1);
+        player2View = findViewById(R.id.player2);
+    }
+
+    @Override
+    public Observable<GameStart> loginName() {
         return RxView.clicks(findViewById(R.id.login_button))
-            .map(new Function<Object, String>() {
-                @Override
-                public String apply(Object o) throws Exception {
-                    TextView textView = (TextView) findViewById(R.id.edit_text);
-                    return textView.getText().toString();
-                }
-            });
+            .map(o -> new GameStart(getPlayer1(), getPlayer2()));
+    }
+
+    private String getPlayer1() {
+        return player1View.getText().toString();
+    }
+
+    private String getPlayer2() {
+        return player2View.getText().toString();
     }
 }
