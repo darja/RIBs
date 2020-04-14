@@ -1,8 +1,8 @@
 package com.uber.rib.root.logged_out;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.uber.rib.core.Bundle;
 import com.uber.rib.core.Interactor;
@@ -12,7 +12,6 @@ import com.uber.rib.root.logged_out.LoggedOutBuilder.LoggedOutScope;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Coordinates Business Logic for {@link LoggedOutScope}.
@@ -23,17 +22,15 @@ public class LoggedOutInteractor
 
     @Inject LoggedOutPresenter presenter;
 
+    @Inject Listener listener;
+
+    @SuppressLint("CheckResult")
     @Override
     protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
         super.didBecomeActive(savedInstanceState);
         presenter
             .loginName()
-            .subscribe(new Consumer<String>() {
-                @Override
-                public void accept(String name) throws Exception {
-                    Log.d("MOO", name);
-                }
-            });
+            .subscribe(name -> listener.login(name));
     }
 
     /**
@@ -41,5 +38,9 @@ public class LoggedOutInteractor
      */
     interface LoggedOutPresenter {
         Observable<String> loginName();
+    }
+
+    public interface Listener {
+        void login(String userName);
     }
 }
