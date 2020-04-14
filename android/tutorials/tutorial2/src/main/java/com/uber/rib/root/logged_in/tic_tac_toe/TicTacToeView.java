@@ -17,10 +17,11 @@
 package com.uber.rib.root.logged_in.tic_tac_toe;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
-import androidx.percentlayout.widget.PercentRelativeLayout;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.percentlayout.widget.PercentRelativeLayout;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.uber.rib.core.Initializer;
@@ -29,7 +30,6 @@ import com.uber.rib.tutorial1.R;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 
 /**
  * Top level view for {@link TicTacToeBuilder.TicTacToeScope}.
@@ -59,23 +59,23 @@ public class TicTacToeView extends PercentRelativeLayout implements
     imageButtons = new TextView[3][];
     imageButtons[0] =
         new TextView[]{
-            (TextView) findViewById(R.id.button11),
-            (TextView) findViewById(R.id.button12),
-            (TextView) findViewById(R.id.button13)
+                findViewById(R.id.button11),
+                findViewById(R.id.button12),
+                findViewById(R.id.button13)
         };
     imageButtons[1] =
         new TextView[]{
-            (TextView) findViewById(R.id.button21),
-            (TextView) findViewById(R.id.button22),
-            (TextView) findViewById(R.id.button23)
+                findViewById(R.id.button21),
+                findViewById(R.id.button22),
+                findViewById(R.id.button23)
         };
     imageButtons[2] =
         new TextView[]{
-            (TextView) findViewById(R.id.button31),
-            (TextView) findViewById(R.id.button32),
-            (TextView) findViewById(R.id.button33)
+                findViewById(R.id.button31),
+                findViewById(R.id.button32),
+                findViewById(R.id.button33)
         };
-    titleView = (TextView) findViewById(R.id.title);
+    titleView = findViewById(R.id.title);
   }
 
   @Override
@@ -87,13 +87,7 @@ public class TicTacToeView extends PercentRelativeLayout implements
         final int finalJ = j;
         observables.add(
             RxView.clicks(imageButtons[i][j])
-                .map(
-                    new Function<Object, BoardCoordinate>() {
-                      @Override
-                      public BoardCoordinate apply(Object irrelevant) throws Exception {
-                        return new BoardCoordinate(finalI, finalJ);
-                      }
-                    }));
+                .map(irrelevant -> new BoardCoordinate(finalI, finalJ)));
       }
     }
     return Observable.merge(observables);

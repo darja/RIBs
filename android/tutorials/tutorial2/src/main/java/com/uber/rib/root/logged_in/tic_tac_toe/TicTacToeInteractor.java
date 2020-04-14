@@ -16,6 +16,8 @@
 
 package com.uber.rib.root.logged_in.tic_tac_toe;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.Nullable;
 
 import com.uber.rib.core.Bundle;
@@ -24,6 +26,7 @@ import com.uber.rib.core.RibInteractor;
 import com.uber.rib.root.logged_in.tic_tac_toe.Board.MarkerType;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -38,11 +41,13 @@ public class TicTacToeInteractor
   @Inject Board board;
   @Inject TicTacToePresenter presenter;
 
-  private final String playerOne = "Fake name 1";
-  private final String playerTwo = "Fake name 2";
+  @Inject @Named("player_one") String player1;
+  @Inject @Named("player_two") String player2;
 
   private MarkerType currentPlayer = MarkerType.CROSS;
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  @SuppressLint("CheckResult")
   @Override
   protected void didBecomeActive(@Nullable Bundle savedInstanceState) {
     super.didBecomeActive(savedInstanceState);
@@ -69,9 +74,9 @@ public class TicTacToeInteractor
                           }
                         }
                         if (board.hasWon(MarkerType.CROSS)) {
-                          presenter.setPlayerWon(playerOne);
+                          presenter.setPlayerWon(player1);
                         } else if (board.hasWon(MarkerType.NOUGHT)) {
-                          presenter.setPlayerWon(playerTwo);
+                          presenter.setPlayerWon(player2);
                         } else if (board.isDraw()) {
                           presenter.setPlayerTie();
                         } else {
@@ -84,9 +89,9 @@ public class TicTacToeInteractor
 
   private void updateCurrentPlayer() {
     if (currentPlayer == MarkerType.CROSS) {
-      presenter.setCurrentPlayerName(playerOne);
+      presenter.setCurrentPlayerName(player1);
     } else {
-      presenter.setCurrentPlayerName(playerTwo);
+      presenter.setCurrentPlayerName(player2);
     }
   }
 
